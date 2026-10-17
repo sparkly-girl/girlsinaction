@@ -1,6 +1,6 @@
 # Girls In Action website: sitemap
 
-Plain HTML/CSS, one shared `style.css`, minimal JS (`nav.js` for the mobile menu, `form.js` for the 2027 sign-up form only). All links are relative, so the site works when opened locally and when hosted under `/girlsinaction/` (https://yumyumhotdog.github.io/girlsinaction/) on GitHub Pages.
+Plain HTML/CSS, one shared `style.css`, minimal JS (`nav.js` for the mobile menu, `form.js` for the 2027 sign-up form only). All links are relative, so the site works when opened locally and when hosted under `/girlsinaction/` (https://sparkly-girl.github.io/girlsinaction/) on GitHub Pages.
 
 ## Global (every page)
 - **Header:** spark logo + "Girls In Action"; nav: Home · Girls in AI (submenu: Girls in AI overview, Technovation, 2027 season) · Athletics · Art · Accounting. Current page marked with `aria-current`. Mobile: a "Menu" toggle button.

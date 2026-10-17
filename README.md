@@ -1,6 +1,6 @@
 # Girls In Action website
 
-Live site: https://yumyumhotdog.github.io/girlsinaction/
+Live site: https://sparkly-girl.github.io/girlsinaction/
 
 A multi-page static website for **Girls In Action** (Leap Forward): girls and women taking action in every part of the world. Plain HTML and CSS with one shared `style.css`, no build step and no framework. All links are relative, so the site works when you open the files locally and on GitHub Pages.
 
