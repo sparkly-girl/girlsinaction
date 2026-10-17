@@ -2,7 +2,7 @@
 
 **Draft for review.** A one-page, informational website for **Girls In Action** featuring **Technovation in Fremont 2027**: information for Fremont-area families about girls teaming up with mentors to build app and AI solutions to real community problems.
 
-Live (GitHub Pages): https://yumyumhotdog.github.io/girls-in-action-site/
+Live (GitHub Pages): https://yumyumhotdog.github.io/Girls-in-Action-site/
 
 ## What's here
 
