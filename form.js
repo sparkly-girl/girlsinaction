@@ -1,18 +1,14 @@
 /*
  * 2027 sign-up form (parent/guardian contact details only).
  *
- * Right now nothing is sent anywhere: on submit we stop the browser from
- * sending the form and show "This form isn't connected yet."
- *
- * TO CONNECT LATER: set CONFIG.enabled = true and implement sendSubmission()
- * below (for example a fetch() POST to your own backend, or a POST to a
- * Google Form's /formResponse URL with its entry IDs). Keep the field
- * `name` attributes in 2027.html in sync with whatever the backend expects.
+ * Submissions are emailed via FormSubmit (https://formsubmit.co), a free
+ * form-to-email service for static sites. Change CONFIG.endpoint to send
+ * them to a different inbox (FormSubmit asks the new inbox to confirm once).
  */
 (function () {
   var CONFIG = {
-    enabled: false,   // keep false until a real, privacy-reviewed destination exists
-    endpoint: ""      // e.g. "https://example.org/api/signup" (placeholder)
+    enabled: true,
+    endpoint: "https://formsubmit.co/ajax/kunal.assistant@mail.grokbot.com"
   };
 
   var form = document.getElementById("signup-form");
@@ -27,17 +23,32 @@
   // HOOK: replace the body of this function to send the data somewhere.
   // `data` is a FormData object with all field values. Return a Promise.
   function sendSubmission(data) {
-    return Promise.reject(new Error("Not connected"));
+    data.append("_subject", "New Technovation in Fremont 2027 sign-up");
+    data.append("_template", "table");
+    data.append("_captcha", "false");
+    return fetch(CONFIG.endpoint, {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: data
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function (j) {
+      if (j && (j.success === false || j.success === "false")) throw new Error(j.message || "Failed");
+      return j;
+    });
   }
 
   // Native validation runs first: the submit event only fires when every
   // required field is filled in and the email/phone fields look valid.
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (form.elements["_honey"] && form.elements["_honey"].value) return; // spam bot
     if (!CONFIG.enabled) {
       show("This form isn't connected yet.", "info");
       return;
     }
+    show("Sending...", "info");
     sendSubmission(new FormData(form))
       .then(function () { form.reset(); show("Thank you! We'll be in touch soon.", "ok"); })
       .catch(function () { show("Sorry, something went wrong. Please try again later.", "err"); });
