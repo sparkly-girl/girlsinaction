@@ -4,11 +4,12 @@
  * Submissions are emailed via FormSubmit (https://formsubmit.co), a free
  * form-to-email service for static sites. Change CONFIG.endpoint to send
  * them to a different inbox (FormSubmit asks the new inbox to confirm once).
+ * The endpoint uses FormSubmit's private alias so the inbox address stays hidden.
  */
 (function () {
   var CONFIG = {
     enabled: true,
-    endpoint: "https://formsubmit.co/ajax/kunal.assistant@mail.grokbot.com"
+    endpoint: "https://formsubmit.co/ajax/fae84588433b5704a324c91f0819f66a"
   };
 
   var form = document.getElementById("signup-form");
