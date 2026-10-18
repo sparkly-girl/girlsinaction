@@ -227,6 +227,14 @@ a { color: var(--accent-text); text-underline-offset: 3px; }
 .form-subtitle .nowrap { white-space: nowrap; }
 .season-grid-2 { grid-template-columns: repeat(2, 1fr); }
 
+/* Official Technovation details (Technovation page) */
+.source { font-size: .85rem; color: var(--muted); margin: .8rem 0 0; }
+.source + .source { margin-top: .2rem; }
+.source a { font-weight: 600; }
+.steps.steps-3 { grid-template-columns: repeat(3, 1fr); margin: 1.5rem 0; }
+.div-age { font: 800 1.35rem var(--h); color: var(--c-text, var(--accent-text)); margin: 0 0 .1rem !important; }
+.step h3 + .div-age { margin-top: .2rem; }
+
 /* Footer */
 .site-footer { background: var(--plum); color: #E6DCF0; padding: 3rem 0 1.5rem; border-top: 8px solid var(--teal); }
 .site-footer h2 { color: var(--white); font-size: 1.5rem; }
@@ -267,6 +275,7 @@ a { color: var(--accent-text); text-underline-offset: 3px; }
 }
 @media (max-width: 600px) {
   .topic-grid, .steps, .season-grid, .team-grid, .start-grid { grid-template-columns: 1fr; }
+  .steps.steps-3 { grid-template-columns: 1fr; }
   .channels { grid-template-columns: repeat(2, 1fr); }
   .different { grid-template-columns: 1fr; }
   .different-label { border-right: 0; border-bottom: 2px solid var(--gold); padding: 0 0 .5rem; max-width: none; }

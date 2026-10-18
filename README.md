@@ -13,7 +13,7 @@ A multi-page static website for **Girls In Action** (Leap Forward): girls and wo
 | Girls in Athletics | `athletics/index.html` | Topic page (coral) |
 | Girls in Art | `art/index.html` | Topic page (gold) |
 | Girls in Accounting | `accounting/index.html` | Topic page (teal) |
-| Technovation (2027, current season) | `ai/technovation/index.html` | 2027 hero, "Get started" buttons (parent / mentor), what Technovation is, about the season, who it's for, how Fremont teams work, timeline, what parents should know, parent sign-up (`#parent-signup`, also `#signup`) and mentor sign-up (`#mentor-signup`) forms, past season cards |
+| Technovation (2027, current season) | `ai/technovation/index.html` | 2027 hero, "Get started" buttons (parent / mentor), what Technovation is, about the season, who it's for, divisions & ages, how Fremont teams work, what teams build and submit, Fremont timeline and official 2026–27 dates, judging, prizes, what parents should know, mentors (official facts link to their Technovation source pages), parent sign-up (`#parent-signup`, also `#signup`) and mentor sign-up (`#mentor-signup`) forms, past season cards |
 | 2027 (old URL) | `ai/technovation/2027.html` | Redirects to `index.html`, keeping any `#anchor` |
 | 2026 / 2025 seasons | `ai/technovation/2026.html`, `2025.html` | Archive pages: summary, teams and projects, highlights, photos |
 
