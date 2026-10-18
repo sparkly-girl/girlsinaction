@@ -13,8 +13,8 @@ A multi-page static website for **Girls In Action** (Leap Forward): girls and wo
 | Girls in Athletics | `athletics/index.html` | Topic page (coral) |
 | Girls in Art | `art/index.html` | Topic page (gold) |
 | Girls in Accounting | `accounting/index.html` | Topic page (teal) |
-| Technovation | `ai/technovation/index.html` | What Technovation is, how it fits in Girls in AI, season cards |
-| 2027 season (current) | `ai/technovation/2027.html` | About the season, who it's for, how Fremont teams work, timeline, what parents should know, sign-up form (`#signup`) |
+| Technovation (2027, current season) | `ai/technovation/index.html` | 2027 hero, "Get started" buttons (parent / mentor), what Technovation is, about the season, who it's for, how Fremont teams work, timeline, what parents should know, parent sign-up (`#parent-signup`, also `#signup`) and mentor sign-up (`#mentor-signup`) forms, past season cards |
+| 2027 (old URL) | `ai/technovation/2027.html` | Redirects to `index.html`, keeping any `#anchor` |
 | 2026 / 2025 seasons | `ai/technovation/2026.html`, `2025.html` | Archive pages: summary, teams and projects, highlights, photos |
 
 More detail: [`SITEMAP.md`](SITEMAP.md).
@@ -25,7 +25,7 @@ Every topic page uses the same layout: hero in the topic color, what it is (with
 
 - `style.css`: all styles. Brand colors are CSS variables at the top: `--blue` (AI), `--coral` (Athletics), `--gold` (Art), `--teal` (Accounting), `--plum` (text and dark bands), `--cream` (background). Fonts: Poppins (headings) and DM Sans (body) from Google Fonts.
 - `nav.js`: the mobile "Menu" button only.
-- `form.js`: the 2027 sign-up form. It is **not connected**: when someone submits, nothing is sent and the page shows "This form isn't connected yet." To connect it later, set `CONFIG.enabled = true` and fill in `sendSubmission()` (see the comments in the file). Add a real privacy note on the 2027 page before you do.
+- `form.js`: handles every `<form class="js-formsubmit">` (the parent and mentor sign-up forms on the Technovation page). Submissions are emailed via FormSubmit's AJAX endpoint. Each form sets its email subject with `data-subject` (mirrored into a hidden `_subject` input), its own thank-you text with `data-success`, and has its own `.form-status` message area and `_honey` honeypot. Add a real privacy note before promoting the forms widely.
 - `assets/`: the Girls In Action spark logo (SVG/PNG), favicons and the social-share image.
 
 ## How to edit

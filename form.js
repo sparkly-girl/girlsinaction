@@ -1,5 +1,14 @@
 /*
- * 2027 sign-up form (parent/guardian contact details only).
+ * Sign-up forms (Technovation page: parent sign-up and mentor sign-up).
+ *
+ * Every <form class="js-formsubmit"> on a page is handled here. Each form:
+ *   - data-subject="..."  the email subject. This attribute is the single
+ *                         source of truth: the hidden _subject input in the
+ *                         HTML is kept in sync with it before each send.
+ *   - data-success="..."  optional thank-you message for that form.
+ *   - data-error="..."    optional error message for that form.
+ *   - its own .form-status element (role="status") for messages.
+ *   - a hidden _honey input (spam honeypot; leave it empty).
  *
  * Submissions are emailed via FormSubmit (https://formsubmit.co), a free
  * form-to-email service for static sites. Change CONFIG.endpoint to send
@@ -11,22 +20,26 @@
     enabled: true,
     endpoint: "https://formsubmit.co/ajax/fae84588433b5704a324c91f0819f66a"
   };
+  var DEFAULT_OK = "Thank you! We'll be in touch soon.";
+  var DEFAULT_ERR = "Sorry, something went wrong. Please try again later.";
 
-  var form = document.getElementById("signup-form");
-  var status = document.getElementById("form-status");
-  if (!form || !status) return;
-
-  function show(msg, kind) {
-    status.textContent = msg;
-    status.className = "form-status show" + (kind ? " " + kind : "");
+  // Make sure the hidden _subject input exists and matches data-subject.
+  function syncSubject(form) {
+    var subject = form.getAttribute("data-subject");
+    if (!subject) return;
+    var input = form.querySelector('input[name="_subject"]');
+    if (!input) {
+      input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "_subject";
+      form.insertBefore(input, form.firstChild);
+    }
+    input.value = subject;
   }
 
-  // HOOK: replace the body of this function to send the data somewhere.
-  // `data` is a FormData object with all field values. Return a Promise.
   function sendSubmission(data) {
-    data.append("_subject", "New Technovation in Fremont 2027 sign-up");
-    data.append("_template", "table");
-    data.append("_captcha", "false");
+    data.set("_template", "table");
+    data.set("_captcha", "false");
     return fetch(CONFIG.endpoint, {
       method: "POST",
       headers: { "Accept": "application/json" },
@@ -40,18 +53,43 @@
     });
   }
 
-  // Native validation runs first: the submit event only fires when every
-  // required field is filled in and the email/phone fields look valid.
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (form.elements["_honey"] && form.elements["_honey"].value) return; // spam bot
-    if (!CONFIG.enabled) {
-      show("This form isn't connected yet.", "info");
-      return;
+  function setup(form) {
+    var status = form.querySelector(".form-status[role='status']") || form.querySelector(".form-status");
+    if (!status) return;
+    syncSubject(form);
+
+    function show(msg, kind) {
+      status.textContent = msg;
+      status.className = "form-status show" + (kind ? " " + kind : "");
     }
-    show("Sending...", "info");
-    sendSubmission(new FormData(form))
-      .then(function () { form.reset(); show("Thank you! We'll be in touch soon.", "ok"); })
-      .catch(function () { show("Sorry, something went wrong. Please try again later.", "err"); });
-  });
+
+    var busy = false;
+    // Native validation runs first: the submit event only fires when every
+    // required field is filled in and the email/phone fields look valid.
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+      if (form.elements["_honey"] && form.elements["_honey"].value) return; // spam bot
+      if (!CONFIG.enabled) {
+        show("This form isn't connected yet.", "info");
+        return;
+      }
+      syncSubject(form);
+      var button = form.querySelector('[type="submit"]');
+      busy = true;
+      if (button) button.disabled = true;
+      show("Sending...", "info");
+      sendSubmission(new FormData(form))
+        .then(function () {
+          form.reset();
+          syncSubject(form);
+          show(form.getAttribute("data-success") || DEFAULT_OK, "ok");
+        })
+        .catch(function () { show(form.getAttribute("data-error") || DEFAULT_ERR, "err"); })
+        .then(function () { busy = false; if (button) button.disabled = false; });
+    });
+  }
+
+  var forms = document.querySelectorAll("form.js-formsubmit");
+  for (var i = 0; i < forms.length; i++) setup(forms[i]);
 })();

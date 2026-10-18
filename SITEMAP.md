@@ -1,6 +1,6 @@
 # Girls In Action website: sitemap
 
-Plain HTML/CSS, one shared `style.css`, minimal JS (`nav.js` for the mobile menu, `form.js` for the 2027 sign-up form only). All links are relative, so the site works when opened locally and when hosted under `/girlsinaction/` (https://sparkly-girl.github.io/girlsinaction/) on GitHub Pages.
+Plain HTML/CSS, one shared `style.css`, minimal JS (`nav.js` for the mobile menu, `form.js` for the sign-up forms on the Technovation page). All links are relative, so the site works when opened locally and when hosted under `/girlsinaction/` (https://sparkly-girl.github.io/girlsinaction/) on GitHub Pages.
 
 ## Global (every page)
 - **Header:** spark logo + "Girls In Action"; nav: Home · Girls in AI (submenu: Girls in AI overview, Technovation, 2027 season) · Athletics · Art · Accounting. Current page marked with `aria-current`. Mobile: a "Menu" toggle button.
@@ -26,6 +26,6 @@ Plain HTML/CSS, one shared `style.css`, minimal JS (`nav.js` for the mobile menu
 - AI page also has a featured **Technovation** panel → `ai/technovation/`.
 
 ## 3. Technovation area (within Girls in AI), organized by season year
-- **`ai/technovation/index.html` (overview):** what Technovation is (general facts from technovation.org, linked); how it fits in Girls in AI; season cards: **2027 (current)**, 2026 (archive), 2025 (archive).
-- **`ai/technovation/2027.html` (current season):** about the season · who it's for · how Fremont teams work (form a team, find a mentor, build, submit) · timeline with [Date TBD] entries · what parents should know · **sign-up form** (`#signup`) for parent/guardian name, email, phone, recommended friends and notes; it is not connected yet and shows an inline "This form isn't connected yet." note; `form.js` has a commented hook for a future backend/Google Form.
+- **`ai/technovation/index.html` (Technovation = 2027 current season):** 2027 hero · **Get started** block ("I'm a parent →" to `#parent-signup`, "I want to mentor →" to `#mentor-signup`) · what Technovation is · about the season · who it's for · how Fremont teams work (form a team, find a mentor, build, submit) · timeline with [Date TBD] entries · what parents should know · **sign-up forms** (`#signup` wrapper): parent sign-up (parent/guardian name, email, phone, child's grade, how they heard about us) and mentor sign-up (name, email, phone, expertise, notes), both emailed via FormSubmit by `form.js` · past seasons: 2026, 2025.
+- **`ai/technovation/2027.html`:** redirect to `index.html` (keeps the `#anchor`, e.g. `#signup`).
 - **`ai/technovation/2026.html`, `2025.html` (archive template):** season summary · teams · projects · highlights · photos, all placeholders like "[Team/project details TBD]".
